@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa do Cais - Fazer Reserva</title>
+
+    <link rel="stylesheet" href="reservas.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">Casa do Cais</div>
+        <div class="actions" id="headerActions">
+            <button class="btn btn-primary" onclick="openBooking()">Fazer reserva</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="eyebrow">Reservas online</div>
+            <h1>Guarde já a sua mesa junto ao Tejo</h1>
+            <p>Se já recebeu o email de confirmação de uma reserva, e ela não aparece nesta página, não precisa reservar novamente. Na próxima reserva que fizer, a sua lista será atualizada.</p>
+            <button class="btn btn-primary" onclick="openBooking()">Fazer reserva</button>
+        </section>
+
+        <div class="info-strip">
+            <span>Rua de São Paulo, 34 — Cais do Sodré</span>
+            <span>Terça a Domingo</span>
+            <span>+351 21 234 56 78</span>
+        </div>
+
+        <section class="reservas-mias" id="minhasReservas" style="display:none;">
+            <h3>As minhas reservas</h3>
+            <div id="listaReservas"></div>
+        </section>
+    </main>
+
+    <div class="overlay" id="overlay">
+        <div class="modal">
+            <button class="close" onclick="closeBooking()">✕</button>
+            <div class="steps"><span id="stp1" class="active"></span><span id="stp2"></span><span id="stp3"></span>
+            </div>
+
+            <div id="view1">
+                <h2>Os seus dados</h2>
+                <div class="field">
+                    <label>Nome</label>
+                    <input id="fNome" type="text" placeholder="Nome completo">
+                    <div class="err" id="errNome">Indique o seu nome.</div>
+                </div>
+                <div class="field">
+                    <label>Telemóvel</label>
+                    <input id="fTel" type="tel" placeholder="+351 9XX XXX XXX">
+                    <div class="err" id="errTel">Indique um número de telemóvel válido (9 dígitos).</div>
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input id="fEmail" type="email" placeholder="nome@exemplo.com">
+                    <div class="err" id="errEmail">Indique um email válido - é para lá que enviamos a confirmação.</div>
+                </div>
+                <div class="row2">
+                    <div class="field">
+                        <label>Data</label>
+                        <input id="fData" type="date">
+                        <div class="err" id="errData">Escolha uma data.</div>
+                    </div>
+                    <div class="field">
+                        <label>Hora</label>
+                        <input id="fHora" type="time">
+                        <div class="err" id="errHora">Escolha uma hora.</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Número de pessoas</label>
+                    <select id="fPessoas">
+                        <option>1</option>
+                        <option selected>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>10</option>
+                        <option>12</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <span></span>
+                    <button class="btn btn-primary" onclick="goStep2()">Escolher mesa →</button>
+                </div>
+            </div>
+
+            <div id="view2" style="display:none;">
+                <h2>Escolha a sua mesa</h2>
+                <div class="legend">
+                    <span><span class="dot free"></span> Livre</span>
+                    <span><span class="dot sel"></span> Selecionada</span>
+                    <span><span class="dot occ"></span> Ocupada</span>
+                </div>
+                <div id="floorplan"></div>
+                <div class="err" id="errMesa" style="margin:10px 0;">Selecione uma mesa disponível.</div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="goStep1()">← Voltar</button>
+                    <button class="btn btn-primary" onclick="goStep3()">Rever reserva →</button>
+                </div>
+            </div>
+
+            <div id="view3" style="display:none;">
+                <h2>Confirme a sua reserva</h2>
+                <div class="summary" id="resumo"></div>
+                <p style="font-size:.85rem;color:var(--azul-escuro);">Ao confirmar, enviaremos um email de confirmação
+                    para o endereço indicado.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="goStep2()">← Voltar</button>
+                    <button class="btn btn-primary" onclick="confirmarReserva()">Confirmar reserva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="reservas.js"></script>
+</body>
+
+</html>
