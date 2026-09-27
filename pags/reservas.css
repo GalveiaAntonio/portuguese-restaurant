@@ -395,3 +395,26 @@ main {
     gap: 10px;
     margin-top: 18px;
 }
+
+.toast {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--azul);
+    color: var(--creme);
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-size: .9rem;
+    opacity: 0;
+    transition: .25s;
+    z-index: 99;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
