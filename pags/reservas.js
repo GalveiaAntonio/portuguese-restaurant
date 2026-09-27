@@ -121,15 +121,30 @@ function renderFloorplan() {
     });
 }
 
-function confirmarReserva() {
+async function confirmarReserva() {
+    const btn = document.querySelector('#view3 .btn-primary');
+    btn.disabled = true; btn.textContent = 'A enviar...';
     const reserva = { ...booking, mesa: selectedTable, id: Date.now() };
-    const reservas = storageGet('reservas', []);
-    reservas.push(reserva);
-    storageSet('reservas', reservas);
-    storageSet('sessao', { nome: reserva.nome, telefone: reserva.telefone, email: reserva.email });
-    closeBooking();
-    showToast('✉️ Email de confirmação enviado para ' + reserva.email);
-    renderSessao();
+    try {
+        const res = await fetch('/api/reservar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reserva)
+        });
+        if (!res.ok) throw new Error('falhou');
+
+        const reservas = storageGet('reservas', []);
+        reservas.push(reserva);
+        storageSet('reservas', reservas);
+        storageSet('sessao', { nome: reserva.nome, telefone: reserva.telefone, email: reserva.email });
+        closeBooking();
+        showToast('✉️ Email de confirmação enviado para ' + reserva.email);
+        renderSessao();
+    } catch (e) {
+        showToast('❌ Não foi possível enviar o email. Tente novamente.');
+    } finally {
+        btn.disabled = false; btn.textContent = 'Confirmar reserva';
+    }
 }
 
 function renderSessao() {
